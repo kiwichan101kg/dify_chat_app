@@ -1,25 +1,12 @@
 import React from "react";
+import { ChatForm } from "./ChatForm";
 
-const data = [
-  { sender: "user", message: "おすすめのレストラン教えて" },
-  { sender: "bot", message: "六本木のSushi Yoshiがおすすめです！" },
-  // 例としてダミーデータを追加
-];
+type Chat = { id: "string"; sender: "ai" | "user"; message: "string" };
+type ChatList = Chat[];
 
-const ChatForm = () => (
-  <div className="bg-white p-4 shadow-inner flex space-x-4">
-    <input
-      type="text"
-      className="flex-grow p-2 border border-gray-300 rounded-lg focus:outline-none"
-      placeholder="メッセージを入力"
-    />
-    <button className="bg-orange-500 text-white p-2 rounded-lg hover:bg-orange-600">
-      送信
-    </button>
-  </div>
-);
-
-export const ChatScreen = () => {
+export const ChatScreen = async () => {
+  const response = await fetch("http://localhost:3333/posts", {});
+  const data: ChatList = await response.json();
   return (
     <div className="flex flex-col h-screen bg-orange-50">
       <header className="bg-orange-400 text-white text-center py-4 shadow-md">
